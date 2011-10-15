@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+    <int-p>5</int-p>
+    <integer>10</integer>
+    <string>string</string>
+    <string-required>string-required</string-required>
+   <date>2011-10-15 17:53:15.383 CEST</date>
+   <locale>fr</locale>
+   <uuid>65678b40-aaf2-4516-8c27-bbfe53de2eca</uuid>
+   <currency>EUR</currency>
+   <enumValue>VALUE_A</enumValue>
+   <bean name="name1"/>
+   <iterable class="java.util.ArrayList">
+      <bean name="name1"/>
+      <bean name="name2"/>
+   </iterable>
+   <collection class="java.util.ArrayList">
+      <collection-element name="name1"/>
+      <collection-element name="name2"/>
+   </collection>
+   <list class="java.util.ArrayList">
+      <element name="name1"/>
+      <element name="name2"/>
+   </list>
+   <set class="java.util.HashSet">
+      <bean name="name2"/>
+      <bean name="name1"/>
+   </set>
+   <map class="java.util.HashMap">
+      <entry string="key2">
+         <bean name="name2"/>
+      </entry>
+      <entry string="key1">
+         <bean name="name1"/>
+      </entry>
+   </map>
+</document>

@@ -1,0 +1,14 @@
+<!DOCTYPE beans PUBLIC "-//JIBX//DTD BEAN 2.0//EN" "http://jibx.cvs.sourceforge.net/viewvc/jibx/core/docs/binding.dtd">
+<binding package="com.google.code.caffeine.serialcmp.jibx">
+    <mapping name="document" class="com.google.code.caffeine.serialcmp.jibx.JibxDocument">
+        <value name="string" field="string" usage="optional" />
+        <structure name="bean" field="bean" type="com.google.code.caffeine.serialcmp.jibx.JibxBean" usage="optional">
+            <value name="name" field="name" />
+        </structure>
+        <collection field="list" type="java.util.ArrayList" usage="optional">
+            <structure name="bean" type="com.google.code.caffeine.serialcmp.jibx.JibxBean" usage="optional">
+                <value name="name" field="name" />
+            </structure>
+        </collection>
+    </mapping>
+</binding>

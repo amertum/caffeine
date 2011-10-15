@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.google.code</groupId>
+    <artifactId>caffeine-serializer-comparison</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>caffeine-serializer-comparison :: parent</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>core</module>
+        
+        <module>xml-jaxb</module>
+        <module>xml-simple</module>
+        <module>xml-jibx</module>
+        <!--
+        <module>xml-stax</module>
+        <module>xml-xmlbeans</module>
+        <module>xml-jackson</module>
+        <module>xml-xstream</module>
+        <module>xml-javolution</module>
+        <module>xml-castor</module>
+        <module>xml-protobuf</module>
+        <module>xml-woodstox</module>
+        -->
+        <module>json-gson</module>
+        <!--
+        <module>json-json-org</module>
+        <module>json-flexjson</module>
+        <module>json-jackson</module>
+        <module>json-protobuf</module>
+        <module>json-jsontools</module>
+        <module>json-jsonlib</module>
+        <module>json-jettison</module>
+        <module>json-sojo</module>
+        -->
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <java.sources.compile.version>1.6</java.sources.compile.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.sources.compile.version}</source>
+                    <target>${java.sources.compile.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <debug>true</debug>
+                    <optimize>true</optimize>
+                    <fork>true</fork>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
