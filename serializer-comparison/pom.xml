@@ -17,15 +17,16 @@
         <module>xml-jaxb</module>
         <module>xml-simple</module>
         <module>xml-jibx</module>
+        <module>xml-xstream</module>
         <!--
         <module>xml-stax</module>
         <module>xml-xmlbeans</module>
         <module>xml-jackson</module>
-        <module>xml-xstream</module>
-        <module>xml-javolution</module>
         <module>xml-castor</module>
-        <module>xml-protobuf</module>
         <module>xml-woodstox</module>
+
+        <module>xml-protobuf</module>
+        <module>xml-javolution</module>
         -->
         <module>json-gson</module>
         <!--
@@ -36,6 +37,7 @@
         <module>json-jsontools</module>
         <module>json-jsonlib</module>
         <module>json-jettison</module>
+        <module>json-fastjson</module>
         <module>json-sojo</module>
         -->
     </modules>

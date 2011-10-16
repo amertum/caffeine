@@ -1,8 +1,12 @@
-package com.google.code.caffeine.serialcmp.jibx;
+package com.google.code.caffeine.serialcmp.xstream;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import java.util.Locale;
 
-public class JibxDocument {
+@XStreamAlias("document")
+public class XstreamDocument {
 
     public int getIntp() {
         return intp;
@@ -32,10 +36,18 @@ public class JibxDocument {
         return locale;
     }
 
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
+    @XStreamAlias("int-p")
     private int intp;
+    @XStreamAlias("integer")
     private Integer integer;
+    @XStreamAlias("string")
     private String string;
+    @XStreamAlias("locale")
+    @XStreamAsAttribute
     private Locale locale;
 
 }

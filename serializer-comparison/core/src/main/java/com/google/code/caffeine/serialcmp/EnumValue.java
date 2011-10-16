@@ -1,4 +1,4 @@
-package com.google.code.caffeine.serialcmp.model;
+package com.google.code.caffeine.serialcmp;
 
 public enum EnumValue {
 

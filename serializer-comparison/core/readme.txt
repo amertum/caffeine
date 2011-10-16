@@ -3,12 +3,18 @@ Objectif :
 Comparer la serialisation/deserialisation XML et JSON de plusieurs librairies Java.
 
 critères :
-    type (xsd, annotation, mapping config file, java code, xpath, introspection...)
-    simplicité
-    stream-to-bean
-    bean-to-stream
+    type mapping (xsd code generation, annotation, mapping config file, java code, xpath, introspection...)
     mapping (primitifs, Date, Enum, List, Map...)
-    xsd-to-java
+    serialization/deserialization
+        constructeur
+        getter/setter
+        hierarchie
+        required attribute, element
+        optional (default value) attribute, element
+        text element
+        reference from id to ref in document
+        xpath
+    simplicité
     performance
     activité
     docs
@@ -39,12 +45,28 @@ librairies :
         bean-to-stream
         mapping
             -le mapping de collection dont le type est abstrait implique l'ajout d'un attribut class="package.Class"
+            +flexible, accepte l'instanciation par constructeur
         xsd-to-java
         performance
         activité
             +actif 2011
         docs
             +bonne document
+
+    xml-jibx
+        type
+            stax, xsd, mapping config file
+        simplicité
+        stream-to-bean
+        bean-to-stream
+        mapping
+            +non intrusif, byte code enhancement, flexible
+        xsd-to-java
+        performance
+        activité
+            +actif 2011
+        docs
+            de la doc, pas forcement facile à prendre en main
 
     xml-xmlbeans
         type
@@ -70,9 +92,9 @@ librairies :
         activité
         docs
 
-    xml-jibx
+    xml-castor
         type
-            stax, xsd, mapping config file
+            xsd code generation, mapping config file
         simplicité
         stream-to-bean
         bean-to-stream
@@ -80,10 +102,10 @@ librairies :
         xsd-to-java
         performance
         activité
+            2011
         docs
 
     xml-jackson
-    xml-castor
     xml-protobuf
     xml-woodstox
     !xml-stax
@@ -101,4 +123,5 @@ librairies :
     json-jsontools
     json-jsonlib
     json-jettison
+    json-fastjson
     json-sojo

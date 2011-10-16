@@ -1,7 +1,6 @@
 package com.google.code.caffeine.serialcmp.jibx;
 
 import com.google.code.caffeine.serialcmp.Serializer;
-import com.google.code.caffeine.serialcmp.model.Document;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -10,10 +9,10 @@ import org.jibx.runtime.IUnmarshallingContext;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-public class JibxSerializer implements Serializer {
+public class JibxSerializer implements Serializer<JibxDocument> {
 
     @Override
-    public String serialize(Document document) {
+    public String serialize(JibxDocument document) {
         try {
             IBindingFactory bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
             IMarshallingContext context = bindingFactory.createMarshallingContext();
@@ -29,12 +28,12 @@ public class JibxSerializer implements Serializer {
     }
 
     @Override
-    public Document deserialize(String xml) {
+    public JibxDocument deserialize(String xml) {
         try {
             IBindingFactory bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
             IUnmarshallingContext context = bindingFactory.createUnmarshallingContext();
 
-            Document document = (Document) context.unmarshalDocument(new StringReader(xml));
+            JibxDocument document = (JibxDocument) context.unmarshalDocument(new StringReader(xml));
 
             return document;
         } catch (Exception e) {
