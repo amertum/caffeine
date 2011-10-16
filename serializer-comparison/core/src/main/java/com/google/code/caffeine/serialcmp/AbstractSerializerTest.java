@@ -24,9 +24,9 @@ import java.util.UUID;
 import static com.google.common.io.Resources.getResource;
 import static org.junit.Assert.fail;
 
-public abstract class AbstractSerializerTest<Type> {
+public abstract class AbstractSerializerTest<DocumentType> {
 
-    protected abstract Serializer<Type> getSerializer();
+    protected abstract Serializer<DocumentType> getSerializer();
 
     @Test
     public void testBasicFields() throws Exception {
@@ -45,7 +45,8 @@ public abstract class AbstractSerializerTest<Type> {
 
             for (int i = 0; i < MAXS[step]; i++) {
                 Split split = stopwatch.start();
-                final String xml = getSerializer().serialize(getSerializer().deserialize(this.createXml("/basic-fields.xml")));
+                DocumentType object = getSerializer().deserialize(this.createXml("/basic-fields.xml"));
+                final String xml = getSerializer().serialize(object);
                 split.stop();
 
                 if (MAXS[step] == 1) {

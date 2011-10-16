@@ -1,13 +1,14 @@
 package com.google.code.caffeine.serialcmp.jaxb;
 
-import com.google.code.caffeine.serialcmp.EnumValue;
+import com.google.code.caffeine.serialcmp.AbstractDocument;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.*;
 
 @XmlRootElement(name = "document")
+@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType
 public class JaxbDocument {
 
     public JaxbDocument() {
@@ -51,7 +52,8 @@ public class JaxbDocument {
     private Integer integer;
     @XmlElement(name = "string")
     private String string;
-    @XmlElement(name = "locale")
+    @XmlAttribute(name = "locale")
+    @XmlJavaTypeAdapter(value = LocaleXmlAdapter.class, type = Locale.class)
     private Locale locale;
 
 }

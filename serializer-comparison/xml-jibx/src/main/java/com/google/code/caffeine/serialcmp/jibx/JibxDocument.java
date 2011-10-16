@@ -1,8 +1,10 @@
 package com.google.code.caffeine.serialcmp.jibx;
 
+import com.google.code.caffeine.serialcmp.AbstractDocument;
+
 import java.util.Locale;
 
-public class JibxDocument {
+public class JibxDocument extends AbstractDocument {
 
     public int getIntp() {
         return intp;
@@ -32,6 +34,9 @@ public class JibxDocument {
         return locale;
     }
 
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
     private int intp;
     private Integer integer;

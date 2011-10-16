@@ -1,12 +1,13 @@
 package com.google.code.caffeine.serialcmp.xstream;
 
+import com.google.code.caffeine.serialcmp.AbstractDocument;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import java.util.Locale;
 
 @XStreamAlias("document")
-public class XstreamDocument {
+public class XstreamDocument extends AbstractDocument {
 
     public int getIntp() {
         return intp;

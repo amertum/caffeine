@@ -1,5 +1,6 @@
 package com.google.code.caffeine.serialcmp.simple;
 
+import com.google.code.caffeine.serialcmp.AbstractDocument;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -11,7 +12,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Root(name = "document")
-public class SimpleDocument {
+public class SimpleDocument extends AbstractDocument {
 
     public int getIntp() {
         return intp;

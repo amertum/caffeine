@@ -1,5 +1,6 @@
 package com.google.code.caffeine.serialcmp.jaxb;
 
+import com.google.code.caffeine.serialcmp.AbstractDocument;
 import com.google.code.caffeine.serialcmp.Serializer;
 
 import javax.xml.bind.JAXBContext;

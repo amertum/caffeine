@@ -24,7 +24,8 @@ librairies :
         type
             +xsd code generation, annotation
         simplicité
-            -pas simple, quelle implementation ? difficile de faire sans XSD
+            -pas simple, quelle implementation ?
+            -
         stream-to-bean
         bean-to-stream
         mapping
@@ -35,6 +36,8 @@ librairies :
             2011
         docs
             il y a de la docs mais on ne trouve pas toujours ce que l'on veut en cas de problème
+            http://thoughtforge.net/2010/02/04/marshalling-xml-with-spring-ws-and-jaxb/
+            jaxb sans annotation : http://community.jboss.org/wiki/JAXBIntroductions
 
     xml-simple
         type
@@ -67,6 +70,7 @@ librairies :
             +actif 2011
         docs
             de la doc, pas forcement facile à prendre en main
+            probleme avec classe abstraite : http://jira.codehaus.org/browse/JIBX-385
 
     xml-xmlbeans
         type
