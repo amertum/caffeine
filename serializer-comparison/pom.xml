@@ -34,13 +34,13 @@
         <module>xml-javolution</module>
         -->
         <module>json-gson</module>
+        <module>json-jackson</module>
 
         <!--
         <module>json-protostuff</module>
         -->
         <!--
         <module>json-flexjson</module>
-        <module>json-jackson</module>
         <module>json-jettison</module>
         <module>json-fastjson</module>
         <module>json-json-org</module>

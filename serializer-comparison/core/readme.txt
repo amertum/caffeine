@@ -2,6 +2,9 @@ Objectif :
 
 Comparer la serialisation/deserialisation XML et JSON de plusieurs librairies Java.
 
+@see https://github.com/eishay/jvm-serializers/wiki/
+@see http://blog.xebia.fr/2010/08/18/comparatif-des-librairies-json/
+
 critères :
     type mapping (xsd code generation, annotation, mapping config file, java code, xpath, introspection...)
     mapping (primitifs, Date, Enum, List, Map...)
@@ -118,7 +121,6 @@ librairies :
         orienté real time
         il faut tout coder à la main
 
-    @see http://blog.xebia.fr/2010/08/18/comparatif-des-librairies-json/
     json-gson
     json-jackson
 
