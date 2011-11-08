@@ -118,14 +118,15 @@ librairies :
         orienté real time
         il faut tout coder à la main
 
+    @see http://blog.xebia.fr/2010/08/18/comparatif-des-librairies-json/
     json-gson
-
-    json-json-org
-    json-flexjson
     json-jackson
+
+    json-flexjson
     json-protobuf
     json-jsontools
     json-jsonlib
     json-jettison
     json-fastjson
-    json-sojo
+    !json-json-org
+    !json-sojo

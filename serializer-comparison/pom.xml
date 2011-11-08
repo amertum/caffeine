@@ -18,6 +18,11 @@
         <module>xml-simple</module>
         <module>xml-jibx</module>
         <module>xml-xstream</module>
+
+        <!--
+        <module>xml-protostuff</module>
+        -->
+
         <!--
         <module>xml-stax</module>
         <module>xml-xmlbeans</module>
@@ -29,6 +34,10 @@
         <module>xml-javolution</module>
         -->
         <module>json-gson</module>
+
+        <!--
+        <module>json-protostuff</module>
+        -->
         <!--
         <module>json-flexjson</module>
         <module>json-jackson</module>

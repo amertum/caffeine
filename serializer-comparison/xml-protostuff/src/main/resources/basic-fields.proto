@@ -1,0 +1,10 @@
+package com.google.code.caffeine.serialcmp.xmlprotostuff.proto;
+
+option java_package = "com.google.code.caffeine.serialcmp.xmlprotostuff.proto";
+
+message XmlProtostuffDocument {
+  optional int32 int-p = 1;
+  optional string integer = 2;
+  optional string string = 3;
+  optional string locale = 4;
+}
