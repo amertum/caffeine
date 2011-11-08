@@ -30,14 +30,15 @@
         -->
         <module>json-gson</module>
         <!--
-        <module>json-json-org</module>
         <module>json-flexjson</module>
         <module>json-jackson</module>
+        <module>json-jettison</module>
+        <module>json-fastjson</module>
+        <module>json-json-org</module>
+
         <module>json-protobuf</module>
         <module>json-jsontools</module>
         <module>json-jsonlib</module>
-        <module>json-jettison</module>
-        <module>json-fastjson</module>
         <module>json-sojo</module>
         -->
     </modules>

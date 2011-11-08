@@ -1,6 +1,5 @@
 package com.google.code.caffeine.serialcmp.jaxb;
 
-import com.google.code.caffeine.serialcmp.AbstractDocument;
 import com.google.code.caffeine.serialcmp.Serializer;
 
 import javax.xml.bind.JAXBContext;
@@ -30,11 +29,11 @@ public class JaxbSerializer implements Serializer<JaxbDocument> {
     }
 
     @Override
-    public JaxbDocument deserialize(String xml) {
+    public JaxbDocument deserialize(String data) {
         try {
             JAXBContext context = JAXBContext.newInstance(JaxbDocument.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            JaxbDocument document = (JaxbDocument) unmarshaller.unmarshal(new StringReader(xml));
+            JaxbDocument document = (JaxbDocument) unmarshaller.unmarshal(new StringReader(data));
 
             return document;
         } catch (JAXBException e) {

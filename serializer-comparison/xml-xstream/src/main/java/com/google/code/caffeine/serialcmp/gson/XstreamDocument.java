@@ -1,4 +1,4 @@
-package com.google.code.caffeine.serialcmp.xstream;
+package com.google.code.caffeine.serialcmp.gson;
 
 import com.google.code.caffeine.serialcmp.AbstractDocument;
 import com.thoughtworks.xstream.annotations.XStreamAlias;

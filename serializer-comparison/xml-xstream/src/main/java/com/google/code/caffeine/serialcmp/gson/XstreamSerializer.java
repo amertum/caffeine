@@ -1,9 +1,7 @@
-package com.google.code.caffeine.serialcmp.xstream;
+package com.google.code.caffeine.serialcmp.gson;
 
 import com.google.code.caffeine.serialcmp.Serializer;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -26,12 +24,12 @@ public class XstreamSerializer implements Serializer<XstreamDocument> {
     }
 
     @Override
-    public XstreamDocument deserialize(String xml) {
+    public XstreamDocument deserialize(String data) {
         try {
             XStream stream = new XStream(); // TODO try other parser
             stream.processAnnotations(XstreamDocument.class);
 
-            XstreamDocument document = (XstreamDocument) stream.fromXML(new StringReader(xml));
+            XstreamDocument document = (XstreamDocument) stream.fromXML(new StringReader(data));
 
             return document;
         } catch (Exception e) {

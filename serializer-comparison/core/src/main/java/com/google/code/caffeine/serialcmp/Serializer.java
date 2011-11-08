@@ -4,6 +4,6 @@ public interface Serializer<Type> {
 
     String serialize(Type document);
 
-    Type deserialize(String xml);
+    Type deserialize(String data);
 
 }

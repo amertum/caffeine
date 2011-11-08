@@ -11,7 +11,6 @@ import org.javasimon.Split;
 import org.javasimon.Stopwatch;
 import org.javasimon.utils.AbstractDataCollector;
 import org.javasimon.utils.GoogleChartGenerator;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,17 +18,26 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import static com.google.common.io.Resources.getResource;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public abstract class AbstractSerializerTest<DocumentType> {
 
+    protected AbstractSerializerTest(final String resourceName)
+    {
+        this.resourceName = resourceName;
+    }
+
     protected abstract Serializer<DocumentType> getSerializer();
 
     @Test
-    public void testBasicFields() throws Exception {
+    public void testBasicFields()
+            throws Exception
+    {
         StackTraceElement stack = Thread.currentThread().getStackTrace()[1];
         int index = this.getClass().getSimpleName().indexOf("SerializerTest");
         String stackStr = this.getClass().getSimpleName().substring(0, index); // + "." + stack.getMethodName().substring(4);
@@ -39,13 +47,22 @@ public abstract class AbstractSerializerTest<DocumentType> {
 
             Stopwatch stopwatch = SimonManager.getStopwatch(stackStr + "-" + MAXS[step]);
             if (step != 0) {
-            //if (step == MAXS.length - 1) {
+                //if (step == MAXS.length - 1) {
                 stopwatchs.add(stopwatch);
             }
 
             for (int i = 0; i < MAXS[step]; i++) {
                 Split split = stopwatch.start();
-                DocumentType object = getSerializer().deserialize(this.createXml("/basic-fields.xml"));
+
+                final DocumentType object = getSerializer().deserialize(this.createData(this.getResourceName()));
+                if (object instanceof AbstractDocument) {
+                    final AbstractDocument document = (AbstractDocument) object;
+
+                    assertEquals(Locale.FRENCH, document.getLocale());
+                    assertEquals(5, document.getIntp());
+                    assertEquals(Integer.valueOf(10), document.getInteger());
+                    assertEquals("string", document.getString());
+                }
                 final String xml = getSerializer().serialize(object);
                 split.stop();
 
@@ -58,78 +75,107 @@ public abstract class AbstractSerializerTest<DocumentType> {
         }
     }
 
+    private String getResourceName()
+    {
+        return this.resourceName;
+    }
+
+    private String resourceName;
+
     private static final List<Stopwatch> stopwatchs = Lists.newArrayList();
 
     @AfterClass
-    public static void barChart() {
+    public static void barChart()
+    {
         final AbstractDataCollector collector = new AbstractDataCollector(Iterables.toArray(stopwatchs, Simon.class)) {
-            public double obtainValue(Simon simon) {
+            public double obtainValue(Simon simon)
+            {
                 return ((Stopwatch) simon).getMean();
             }
         };
         collector.collect();
 
         String chartUrl = GoogleChartGenerator.barChart(collector, "basic fields mean", 1000000, "ms");
-        System.out.println("chartUrl: " + chartUrl.replace("chs=600x300&cht=bvg&chbh=32,10,60", "chs=1000x200&cht=bvg&chbh=20,10,55"));
+        System.out.println("chartUrl: " +
+                           chartUrl.replace("chs=600x300&cht=bvg&chbh=32,10,60", "chs=1000x200&cht=bvg&chbh=20,10,55"));
     }
 
     @Test
     @Ignore
-    public void testRequiredOptionalTransient() throws Exception {
+    public void testRequiredOptionalTransient()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testDate() throws Exception {
+    public void testDate()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testLocale() throws Exception {
+    public void testLocale()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testHierarchyBeans() throws Exception {
+    public void testHierarchyBeans()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testList() throws Exception {
+    public void testList()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testMap() throws Exception {
+    public void testMap()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testConstructor() throws Exception {
+    public void testConstructor()
+            throws Exception
+    {
         fail();
     }
 
     @Test
     @Ignore
-    public void testCopiedFields() throws Exception {
+    public void testCopiedFields()
+            throws Exception
+    {
         fail();
     }
 
-    public String createXml(final String resourceName) {
+    public String createData(final String resourceName)
+    {
         try {
             return Resources.toString(getResource(this.getClass(), resourceName), Charsets.UTF_8);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw Throwables.propagate(e);
         }
     }
 
-    public static Date date() {
+    public static Date date()
+    {
         return new Date(2011, 9, 15, 17, 53, 15);
     }
 

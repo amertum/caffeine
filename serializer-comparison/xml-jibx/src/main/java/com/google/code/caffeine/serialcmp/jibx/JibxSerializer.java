@@ -28,12 +28,12 @@ public class JibxSerializer implements Serializer<JibxDocument> {
     }
 
     @Override
-    public JibxDocument deserialize(String xml) {
+    public JibxDocument deserialize(String data) {
         try {
             IBindingFactory bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
             IUnmarshallingContext context = bindingFactory.createUnmarshallingContext();
 
-            JibxDocument document = (JibxDocument) context.unmarshalDocument(new StringReader(xml));
+            JibxDocument document = (JibxDocument) context.unmarshalDocument(new StringReader(data));
 
             return document;
         } catch (Exception e) {

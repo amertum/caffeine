@@ -26,12 +26,12 @@ public class SimpleSerializer implements Serializer<SimpleDocument> {
     }
 
     @Override
-    public SimpleDocument deserialize(String xml) {
+    public SimpleDocument deserialize(String data) {
         try {
             Strategy strategy = new AnnotationStrategy();
             Persister serializer = new Persister(strategy);
 
-            SimpleDocument document = serializer.read(SimpleDocument.class, new StringReader(xml));
+            SimpleDocument document = serializer.read(SimpleDocument.class, new StringReader(data));
 
             return document;
         } catch (Exception e) {
