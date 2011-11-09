@@ -13,11 +13,8 @@ public class SimpleSerializer implements Serializer<SimpleDocument> {
     @Override
     public String serialize(SimpleDocument document) {
         try {
-            Strategy strategy = new AnnotationStrategy();
-            Persister serializer = new Persister(strategy);
-
             StringWriter stringWriter = new StringWriter();
-            serializer.write(document, stringWriter);
+            this.serializer.write(document, stringWriter);
 
             return stringWriter.toString();
         } catch (Exception e) {
@@ -28,15 +25,15 @@ public class SimpleSerializer implements Serializer<SimpleDocument> {
     @Override
     public SimpleDocument deserialize(String data) {
         try {
-            Strategy strategy = new AnnotationStrategy();
-            Persister serializer = new Persister(strategy);
-
-            SimpleDocument document = serializer.read(SimpleDocument.class, new StringReader(data));
+            SimpleDocument document = this.serializer.read(SimpleDocument.class, new StringReader(data));
 
             return document;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    private final Strategy strategy = new AnnotationStrategy();
+    private final Persister serializer = new Persister(this.strategy);
 
 }

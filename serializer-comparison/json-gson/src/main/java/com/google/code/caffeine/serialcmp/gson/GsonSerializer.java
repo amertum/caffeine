@@ -9,7 +9,7 @@ public class GsonSerializer
     @Override
     public String serialize(GsonDocument document) {
         try {
-            return new Gson().toJson(document);
+            return this.gson.toJson(document);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -18,12 +18,14 @@ public class GsonSerializer
     @Override
     public GsonDocument deserialize(String data) {
         try {
-            final GsonDocument document = new Gson().fromJson(data, GsonDocument.class);
+            final GsonDocument document = this.gson.fromJson(data, GsonDocument.class);
 
             return document;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    private final Gson gson = new Gson();
 
 }

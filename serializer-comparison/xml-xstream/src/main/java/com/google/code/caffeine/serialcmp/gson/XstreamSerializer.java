@@ -8,14 +8,17 @@ import java.io.StringWriter;
 
 public class XstreamSerializer implements Serializer<XstreamDocument> {
 
+    public XstreamSerializer()
+    {
+        this.stream = new XStream();
+        this.stream.processAnnotations(XstreamDocument.class);
+    }
+
     @Override
     public String serialize(XstreamDocument document) {
         try {
-            XStream stream = new XStream();
-            stream.processAnnotations(XstreamDocument.class);
-
             StringWriter stringWriter = new StringWriter();
-            stream.toXML(document, stringWriter);
+            this.stream.toXML(document, stringWriter);
 
             return stringWriter.toString();
         } catch (Exception e) {
@@ -26,15 +29,14 @@ public class XstreamSerializer implements Serializer<XstreamDocument> {
     @Override
     public XstreamDocument deserialize(String data) {
         try {
-            XStream stream = new XStream(); // TODO try other parser
-            stream.processAnnotations(XstreamDocument.class);
-
-            XstreamDocument document = (XstreamDocument) stream.fromXML(new StringReader(data));
+            XstreamDocument document = (XstreamDocument) this.stream.fromXML(new StringReader(data));
 
             return document;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    private final XStream stream;
 
 }

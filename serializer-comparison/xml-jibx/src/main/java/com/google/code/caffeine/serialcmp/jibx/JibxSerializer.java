@@ -1,25 +1,37 @@
 package com.google.code.caffeine.serialcmp.jibx;
 
 import com.google.code.caffeine.serialcmp.Serializer;
+import com.google.common.base.Throwables;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
+import org.jibx.runtime.JiBXException;
 
 import java.io.StringReader;
 import java.io.StringWriter;
 
 public class JibxSerializer implements Serializer<JibxDocument> {
 
+    public JibxSerializer()
+    {
+        try {
+            this.bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
+            this.marshallingContext = this.bindingFactory.createMarshallingContext();
+            this.unmarshallingContext = this.bindingFactory.createUnmarshallingContext();
+        }
+        catch (JiBXException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+
     @Override
     public String serialize(JibxDocument document) {
         try {
-            IBindingFactory bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
-            IMarshallingContext context = bindingFactory.createMarshallingContext();
-            context.setIndent(4);
+            this.marshallingContext.setIndent(4);
 
             StringWriter stringWriter = new StringWriter();
-            context.marshalDocument(document, "UTF-8", null, stringWriter);
+            this.marshallingContext.marshalDocument(document, "UTF-8", null, stringWriter);
 
             return stringWriter.toString();
         } catch (Exception e) {
@@ -30,15 +42,17 @@ public class JibxSerializer implements Serializer<JibxDocument> {
     @Override
     public JibxDocument deserialize(String data) {
         try {
-            IBindingFactory bindingFactory = BindingDirectory.getFactory(JibxDocument.class);
-            IUnmarshallingContext context = bindingFactory.createUnmarshallingContext();
 
-            JibxDocument document = (JibxDocument) context.unmarshalDocument(new StringReader(data));
+            JibxDocument document = (JibxDocument) this.unmarshallingContext.unmarshalDocument(new StringReader(data));
 
             return document;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    private final IBindingFactory bindingFactory;
+    private final IMarshallingContext marshallingContext;
+    private final IUnmarshallingContext unmarshallingContext;
 
 }

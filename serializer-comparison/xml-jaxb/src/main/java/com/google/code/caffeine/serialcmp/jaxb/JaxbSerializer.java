@@ -1,6 +1,7 @@
 package com.google.code.caffeine.serialcmp.jaxb;
 
 import com.google.code.caffeine.serialcmp.Serializer;
+import com.google.common.base.Throwables;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,16 +12,27 @@ import java.io.StringWriter;
 
 public class JaxbSerializer implements Serializer<JaxbDocument> {
 
+    public JaxbSerializer()
+    {
+        try {
+            this.context = JAXBContext.newInstance(JaxbDocument.class);
+
+            this.marshaller = this.context.createMarshaller();
+            this.marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            this.unmarshaller = this.context.createUnmarshaller();
+        }
+        catch (JAXBException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+
     @Override
     public String serialize(JaxbDocument document) {
         try {
-            JAXBContext context = JAXBContext.newInstance(JaxbDocument.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
             StringWriter stringWriter = new StringWriter();
-            marshaller.marshal(document, stringWriter);
+            this.marshaller.marshal(document, stringWriter);
 
             return stringWriter.toString();
         } catch (JAXBException e) {
@@ -31,14 +43,16 @@ public class JaxbSerializer implements Serializer<JaxbDocument> {
     @Override
     public JaxbDocument deserialize(String data) {
         try {
-            JAXBContext context = JAXBContext.newInstance(JaxbDocument.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            JaxbDocument document = (JaxbDocument) unmarshaller.unmarshal(new StringReader(data));
+            JaxbDocument document = (JaxbDocument) this.unmarshaller.unmarshal(new StringReader(data));
 
             return document;
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private final JAXBContext context;
+    private final Marshaller marshaller;
+    private final Unmarshaller unmarshaller;
 
 }
