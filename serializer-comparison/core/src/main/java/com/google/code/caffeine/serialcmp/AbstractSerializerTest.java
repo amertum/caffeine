@@ -42,6 +42,8 @@ public abstract class AbstractSerializerTest<DocumentType> {
         int index = this.getClass().getSimpleName().indexOf("SerializerTest");
         String stackStr = this.getClass().getSimpleName().substring(0, index); // + "." + stack.getMethodName().substring(4);
 
+        final Serializer<DocumentType> serializer = this.getSerializer();
+
         //List<Stopwatch> stopwatchs = Lists.newArrayList();
         for (int step = 0; step < MAXS.length; step++) {
 
@@ -54,7 +56,7 @@ public abstract class AbstractSerializerTest<DocumentType> {
             for (int i = 0; i < MAXS[step]; i++) {
                 Split split = stopwatch.start();
 
-                final DocumentType object = getSerializer().deserialize(this.createData(this.getResourceName()));
+                final DocumentType object = serializer.deserialize(this.createData(this.getResourceName()));
                 if (object instanceof AbstractDocument) {
                     final AbstractDocument document = (AbstractDocument) object;
 
@@ -63,7 +65,7 @@ public abstract class AbstractSerializerTest<DocumentType> {
                     assertEquals(Integer.valueOf(10), document.getInteger());
                     assertEquals("string", document.getString());
                 }
-                final String xml = getSerializer().serialize(object);
+                final String xml = serializer.serialize(object);
                 split.stop();
 
                 if (MAXS[step] == 1) {
@@ -97,7 +99,9 @@ public abstract class AbstractSerializerTest<DocumentType> {
 
         String chartUrl = GoogleChartGenerator.barChart(collector, "basic fields mean", 1000000, "ms");
         System.out.println("chartUrl: " +
-                           chartUrl.replace("chs=600x300&cht=bvg&chbh=32,10,60", "chs=1000x200&cht=bvg&chbh=20,10,55"));
+                           chartUrl.replace("chs=600x300&cht=bvg&chbh=32,10,60&chco=4d89f9,c6d9fd&chxt=x,x,y", "chs=1000x200&cht=bvg&chbh=20,10,55&chco=4D89D9|8D89D9|BD89D9&chxt=y,y,x"));
+        System.out.println("chartUrl: " +
+                           chartUrl.replace("chs=600x300&cht=bvg&chbh=32,10,60&chco=4d89f9,c6d9fd&chxt=x,x,y", "chs=300x450&cht=bhg&chbh=10,5,10&chco=4D89D9|8D89D9|BD89D9&chxt=y,y,x"));
     }
 
     @Test
