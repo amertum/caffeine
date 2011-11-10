@@ -1,6 +1,5 @@
 package com.google.code.caffeine.serialcmp;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
@@ -15,7 +14,6 @@ import org.javasimon.Split;
 import org.javasimon.Stopwatch;
 import org.javasimon.utils.AbstractDataCollector;
 import org.junit.AfterClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -26,13 +24,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.google.common.base.Charsets.UTF_8;
 import static com.google.common.collect.Iterables.getLast;
 import static com.google.common.collect.Iterables.toArray;
 import static com.google.common.collect.Ordering.from;
 import static com.google.common.collect.Ordering.natural;
 import static com.google.common.io.Resources.getResource;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public abstract class AbstractSerializerTest<DocumentType> {
 
@@ -66,14 +64,13 @@ public abstract class AbstractSerializerTest<DocumentType> {
             for (int i = 0; i < MAXS[step]; i++) {
                 final Map<String, String> dataMap = randomData();
                 final String dataXml = makeXml(dataMap);
-                final String dataJson = makeJson(dataMap, "int-p");
+                final String dataJson = makeJson(dataMap);
 
                 final Map<String, String> strategy = ImmutableMap.<String, String>builder().put("Simple", dataXml)
                                                                  .put("Jaxb", dataXml).put("XStream", dataXml)
                                                                  .put("Jibx", dataXml).put("Gson", dataJson)
                                                                  .put("Jackson", dataJson).build();
                 final String data = strategy.get(stackStr);
-                //final String data = this.createData(this.getResourceName());
 
                 Split split = stopwatch.start();
 
@@ -123,17 +120,37 @@ public abstract class AbstractSerializerTest<DocumentType> {
     private static String makeXml(
             final Map<String, String> data)
     {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><document locale=\"" + data.get("locale") + "\"><int-p>" +
-               data.get("intp") + "</int-p><integer>" + data.get("integer") + "</integer><string>" +
-               data.get("string") + "</string></document>";
+        try {
+            final String template = Resources.toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.xml"), UTF_8);
+
+            String instance = template;
+            for (final Map.Entry<String, String> entry : data.entrySet()) {
+                instance = instance.replace("${" + entry.getKey() + "}", entry.getValue());
+            }
+
+            return instance;
+        }
+        catch (IOException e) {
+            throw Throwables.propagate(e);
+        }
     }
 
     private static String makeJson(
-            final Map<String, String> data,
-            final String intpName)
+            final Map<String, String> data)
     {
-        return "{\"locale\":\"" + data.get("locale") + "\",\"int-p\":" + data.get("intp") + ",\"integer\":" +
-               data.get("integer") + ",\"string\":\"" + data.get("string") + "\"}";
+        try {
+            final String template = Resources.toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.json"), UTF_8);
+
+            String instance = template;
+            for (final Map.Entry<String, String> entry : data.entrySet()) {
+                instance = instance.replace("${" + entry.getKey() + "}", entry.getValue());
+            }
+
+            return instance;
+        }
+        catch (IOException e) {
+            throw Throwables.propagate(e);
+        }
     }
 
     @AfterClass
@@ -159,74 +176,11 @@ public abstract class AbstractSerializerTest<DocumentType> {
         System.out.println("chartUrl: " + chartUrl);
     }
 
-    @Test
-    @Ignore
-    public void testRequiredOptionalTransient()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testDate()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testLocale()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testHierarchyBeans()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testList()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testMap()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testConstructor()
-            throws Exception
-    {
-        fail();
-    }
-
-    @Test
-    @Ignore
-    public void testCopiedFields()
-            throws Exception
-    {
-        fail();
-    }
 
     public String createData(final String resourceName)
     {
         try {
-            return Resources.toString(getResource(this.getClass(), resourceName), Charsets.UTF_8);
+            return Resources.toString(getResource(this.getClass(), resourceName), UTF_8);
         }
         catch (IOException e) {
             throw Throwables.propagate(e);
@@ -240,7 +194,8 @@ public abstract class AbstractSerializerTest<DocumentType> {
 
     public static final UUID _UUID = UUID.fromString("338b6eb4-d697-4245-94d8-cb2ba2a27a18");
 
-    private static final int[] MAXS = {1, 1000, 100000};
+    //private static final int[] MAXS = {1, 1000, 100000};
+    private static final int[] MAXS = {1, 1000};
 
     private static class ByNameSimonComparator
             implements Comparator<Stopwatch>

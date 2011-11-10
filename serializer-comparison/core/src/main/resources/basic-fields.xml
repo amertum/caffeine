@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<document locale="fr">
-    <int-p>5</int-p>
-    <integer>10</integer>
-    <string>string</string>
+<document locale="${locale}" version="1.1">
+    <int-p>${intp}</int-p>
+    <integer>${integer}</integer>
+    <string>${string}</string>
+    <myList>
+        <element id="1">
+            <text>me</text>
+        </element>
+        <element id="2">
+            <text>you</text>
+        </element>
+    </myList>
+    <!--
+    <myMap><entry key="key1" value="value1" /><entry key="key2" value="value2" /></myMap>
+    -->
 </document>

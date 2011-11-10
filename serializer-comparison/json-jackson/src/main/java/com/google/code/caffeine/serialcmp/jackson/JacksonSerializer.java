@@ -8,6 +8,12 @@ import java.io.StringWriter;
 public class JacksonSerializer
         implements Serializer<JacksonDocument> {
 
+    public JacksonSerializer()
+    {
+        this.mapper = new ObjectMapper();
+        //this.mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
     @Override
     public String serialize(JacksonDocument document) {
         try {
@@ -31,6 +37,6 @@ public class JacksonSerializer
         }
     }
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
 
 }

@@ -4,6 +4,7 @@ import com.google.code.caffeine.serialcmp.AbstractDocument;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Version;
 import org.simpleframework.xml.convert.Converter;
 import org.simpleframework.xml.stream.InputNode;
 import org.simpleframework.xml.stream.OutputNode;
@@ -55,6 +56,8 @@ public class SimpleDocument extends AbstractDocument {
     @Attribute(name = "locale")
     protected Locale locale;
 
+    @Version(revision=1.0)
+    private double version;
 
     public static class UUIDConverter implements Converter<UUID> {
 

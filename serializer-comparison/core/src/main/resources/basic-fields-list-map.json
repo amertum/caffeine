@@ -1,0 +1,8 @@
+{
+    "locale":"${locale}",
+    "int-p":${intp},
+    "integer":${integer},
+    "string":"${string}",
+    "myList":[{"id":"1","text":"me"},{"id":"2","text":"you"}],
+    "myMap": {"key1":"value1","key2":"value2"}
+}

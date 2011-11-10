@@ -1,10 +1,12 @@
 package com.google.code.caffeine.serialcmp.jackson;
 
 import com.google.code.caffeine.serialcmp.AbstractDocument;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.Locale;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JacksonDocument
         extends AbstractDocument
 {
