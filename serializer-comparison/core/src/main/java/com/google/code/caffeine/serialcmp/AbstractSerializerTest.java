@@ -121,7 +121,8 @@ public abstract class AbstractSerializerTest<DocumentType> {
             final Map<String, String> data)
     {
         try {
-            final String template = Resources.toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.xml"), UTF_8);
+            final String template = Resources
+                    .toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.xml"), UTF_8);
 
             String instance = template;
             for (final Map.Entry<String, String> entry : data.entrySet()) {
@@ -139,7 +140,8 @@ public abstract class AbstractSerializerTest<DocumentType> {
             final Map<String, String> data)
     {
         try {
-            final String template = Resources.toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.json"), UTF_8);
+            final String template = Resources
+                    .toString(Resources.getResource(AbstractSerializerTest.class, "/basic-fields.json"), UTF_8);
 
             String instance = template;
             for (final Map.Entry<String, String> entry : data.entrySet()) {
@@ -194,8 +196,8 @@ public abstract class AbstractSerializerTest<DocumentType> {
 
     public static final UUID _UUID = UUID.fromString("338b6eb4-d697-4245-94d8-cb2ba2a27a18");
 
-    //private static final int[] MAXS = {1, 1000, 100000};
-    private static final int[] MAXS = {1, 1000};
+    private static final int[] MAXS = {1, 1000, 100000};
+    //private static final int[] MAXS = {1, 1000};
 
     private static class ByNameSimonComparator
             implements Comparator<Stopwatch>

@@ -3,9 +3,13 @@ package com.google.code.caffeine.serialcmp.gson;
 import com.google.code.caffeine.serialcmp.AbstractDocument;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.converters.collections.CollectionConverter;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @XStreamAlias("document")
 public class XstreamDocument
@@ -52,14 +56,24 @@ public class XstreamDocument
         this.locale = locale;
     }
 
-    public List<Element> getElements()
+    public List<XStreamElement> getElements()
     {
         return elements;
     }
 
-    public void setElements(final List<Element> elements)
+    public void setElements(final List<XStreamElement> elements)
     {
         this.elements = elements;
+    }
+
+    public Map<String, String> getMap()
+    {
+        return this.map;
+    }
+
+    public void setMap(final Map<String, String> map)
+    {
+        this.map = map;
     }
 
     @XStreamAlias("int-p")
@@ -72,37 +86,11 @@ public class XstreamDocument
     @XStreamAsAttribute
     private Locale locale;
     @XStreamAlias("myList")
-    private List<Element> elements;
-
-    @XStreamAlias("element")
-    public static class Element {
-        
-        public String getId()
-        {
-            return id;
-        }
-
-        public void setId(final String id)
-        {
-            this.id = id;
-        }
-
-        public String getText()
-        {
-            return text;
-        }
-
-        public void setText(final String text)
-        {
-            this.text = text;
-        }
-
-        @XStreamAlias("id")
-        @XStreamAsAttribute
-        private String id;
-        @XStreamAlias("text")
-        private String text;
-        
-    }
+    @XStreamConverter(CollectionConverter.class)
+    private List<XStreamElement> elements;
+    @XStreamAlias("myMap")
+    // TODO @XStreamConverter(XstreamSerializer.CustomMapConverter.class)
+    @XStreamOmitField
+    private Map<String, String> map;
 
 }

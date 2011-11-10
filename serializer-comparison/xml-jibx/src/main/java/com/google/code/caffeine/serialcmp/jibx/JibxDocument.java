@@ -4,6 +4,7 @@ import com.google.code.caffeine.serialcmp.AbstractDocument;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class JibxDocument extends AbstractDocument {
 
@@ -49,10 +50,21 @@ public class JibxDocument extends AbstractDocument {
         this.elements = elements;
     }
 
+    public Map<String, String> getMap()
+    {
+        return this.map;
+    }
+
+    public void setMap(final Map<String, String> map)
+    {
+        this.map = map;
+    }
+
     private int intp;
     private Integer integer;
     private String string;
     private Locale locale;
     private List<JibxElement> elements;
+    private Map<String, String> map;
 
 }

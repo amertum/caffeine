@@ -4,7 +4,9 @@ import com.google.code.caffeine.serialcmp.AbstractDocument;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JacksonDocument
@@ -43,6 +45,26 @@ public class JacksonDocument
         this.locale = locale;
     }
 
+    public List<JacksonElement> getElements()
+    {
+        return this.elements;
+    }
+
+    public void setElements(final List<JacksonElement> elements)
+    {
+        this.elements = elements;
+    }
+
+    public Map<String, String> getMap()
+    {
+        return this.map;
+    }
+
+    public void setMap(final Map<String, String> map)
+    {
+        this.map = map;
+    }
+
     @JsonProperty("int-p")
     private int intp;
     @JsonProperty("integer")
@@ -51,5 +73,9 @@ public class JacksonDocument
     private String string;
     @JsonProperty("locale")
     private Locale locale;
+    @JsonProperty("myList")
+    private List<JacksonElement> elements;
+    @JsonProperty("myMap")
+    private Map<String, String> map;
 
 }

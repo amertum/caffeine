@@ -11,7 +11,8 @@
             <text>you</text>
         </element>
     </myList>
-    <!--
-    <myMap><entry key="key1" value="value1" /><entry key="key2" value="value2" /></myMap>
-    -->
+    <myMap>
+        <entry key="key1" value="value1" />
+        <entry key="key2" value="value2" />
+    </myMap>
 </document>

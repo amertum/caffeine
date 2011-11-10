@@ -6,16 +6,13 @@
         <value name="string" field="string" />
         <value name="locale" field="locale" style="attribute" />
 
-        <!--
-        <structure name="bean" field="bean" type="com.google.code.caffeine.serialcmp.jibx.JibxBean" usage="optional">
-            <value name="name" field="name" />
-        </structure>
-        -->
         <collection name="myList" field="elements" type="java.util.ArrayList">
             <structure name="element" type="com.google.code.caffeine.serialcmp.jibx.JibxElement">
                 <value name="id" field="id" style="attribute" />
                 <value name="text" field="text" />
             </structure>
         </collection>
+        <structure field="map" type="java.util.HashMap" marshaller="org.jibx.extras.HashMapperStringToComplex" unmarshaller="org.jibx.extras.HashMapperStringToComplex" />
     </mapping>
+    <mapping name="myMap" class="java.util.HashMap" marshaller="org.jibx.extras.HashMapperStringToComplex" unmarshaller="org.jibx.extras.HashMapperStringToComplex" />
 </binding>

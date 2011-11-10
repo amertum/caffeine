@@ -20,6 +20,7 @@
         <module>xml-xstream</module>
 
         <!--
+        <module>xml-castor</module>
         <module>xml-protostuff</module>
         -->
 
@@ -27,7 +28,6 @@
         <module>xml-stax</module>
         <module>xml-xmlbeans</module>
         <module>xml-jackson</module>
-        <module>xml-castor</module>
         <module>xml-woodstox</module>
 
         <module>xml-protobuf</module>

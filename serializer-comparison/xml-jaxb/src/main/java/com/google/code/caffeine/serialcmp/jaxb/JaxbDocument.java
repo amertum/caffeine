@@ -1,10 +1,16 @@
 package com.google.code.caffeine.serialcmp.jaxb;
 
-import com.google.code.caffeine.serialcmp.AbstractDocument;
-
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 @XmlRootElement(name = "document")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -46,6 +52,26 @@ public class JaxbDocument {
         this.locale = locale;
     }
 
+    public ArrayList<JaxbElement> getElements()
+    {
+        return this.elements;
+    }
+
+    public void setElements(final ArrayList<JaxbElement> elements)
+    {
+        this.elements = elements;
+    }
+
+    public HashMap<String, String> getMap()
+    {
+        return this.map;
+    }
+
+    public void setMap(final HashMap<String, String> map)
+    {
+        this.map = map;
+    }
+
     @XmlElement(name = "intp")
     private int intp;
     @XmlElement(name = "integer")
@@ -55,5 +81,10 @@ public class JaxbDocument {
     @XmlAttribute(name = "locale")
     @XmlJavaTypeAdapter(value = LocaleXmlAdapter.class, type = Locale.class)
     private Locale locale;
+    @XmlElementWrapper(name = "myList")
+    @XmlElement(name = "element")
+    private ArrayList<JaxbElement> elements;
+    @XmlTransient
+    private HashMap<String, String> map;
 
 }
