@@ -1,4 +1,4 @@
-package com.google.code.caffeine;
+package caffeine.servlight;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

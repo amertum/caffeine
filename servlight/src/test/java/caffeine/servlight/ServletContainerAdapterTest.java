@@ -1,5 +1,6 @@
-package com.google.code.caffeine;
+package caffeine.servlight;
 
+import caffeine.servlight.ServletContainerAdapter;
 import com.google.common.io.ByteStreams;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

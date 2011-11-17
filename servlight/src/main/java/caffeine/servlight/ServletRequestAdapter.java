@@ -1,4 +1,4 @@
-package com.google.code.caffeine;
+package caffeine.servlight;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
