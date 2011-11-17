@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+    <appender name="CONSOLE-OUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="debug" />
+            <param name="levelMax" value="warn" />
+        </filter>
+    </appender>
+    <appender name="CONSOLE-ERR" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.err" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="error" />
+            <param name="levelMax" value="error" />
+        </filter>
+    </appender>
+
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+    <logger name="org.springframework.web">
+        <level value="TRACE"/>
+    </logger>
+
+    <root>
+        <priority value="INFO" />
+         
+        <appender-ref ref="CONSOLE-OUT" />
+        <appender-ref ref="CONSOLE-ERR" />
+    </root>
+
+</log4j:configuration>

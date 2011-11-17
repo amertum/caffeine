@@ -13,9 +13,11 @@ public class ServletContainerAdapter
         implements Container {
 
     public ServletContainerAdapter(
-            final Servlet servlet
+            final Servlet servlet,
+            final String contextPath
     ) {
         this.servlet = servlet;
+        this.contextPath = contextPath;
     }
 
     @Override
@@ -24,7 +26,11 @@ public class ServletContainerAdapter
             final Response response
     ) {
         try {
-            this.servlet.service(new ServletRequestAdapter(request), new ServletResponseAdapter(response));
+            final ServletRequestAdapter requestAdapter = new ServletRequestAdapter(request);
+            requestAdapter.setAttribute("javax.servlet.include.context_path", this.contextPath);
+            final ServletResponseAdapter responseAdapter = new ServletResponseAdapter(response);
+
+            this.servlet.service(requestAdapter, responseAdapter);
         } catch (ServletException e) {
             throw Throwables.propagate(e);
         } catch (IOException e) {
@@ -33,5 +39,6 @@ public class ServletContainerAdapter
     }
 
     private final Servlet servlet;
+    private final String contextPath;
 
 }
