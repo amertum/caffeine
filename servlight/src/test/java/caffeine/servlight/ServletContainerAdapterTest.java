@@ -1,44 +1,38 @@
 package caffeine.servlight;
 
-import caffeine.servlight.ServletContainerAdapter;
+import caffeine.servlight.springweb.SpringWebServlight;
 import com.google.common.io.ByteStreams;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.Test;
-import org.simpleframework.http.core.Container;
-import org.simpleframework.transport.connect.Connection;
-import org.simpleframework.transport.connect.SocketConnection;
-import org.springframework.mock.web.MockServletConfig;
-import org.springframework.web.servlet.DispatcherServlet;
 
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
+import static org.apache.http.params.HttpConnectionParams.setConnectionTimeout;
+import static org.apache.http.params.HttpConnectionParams.setSoTimeout;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class ServletContainerAdapterTest {
 
     @Test
-    public void testHandle()
+    public void testHandleSpringXml()
             throws Exception
     {
-        final DispatcherServlet servlet = new DispatcherServlet();
-        final MockServletConfig servletConfig = new MockServletConfig("test");
-        servletConfig.addInitParameter("contextConfigLocation", "classpath:/hello-servlet.xml");
-        servlet.init(servletConfig);
+        final SpringWebServlight servlight = new SpringWebServlight("/test", 9595, "classpath:/hello-servlet.xml");
+        servlight.start();
 
-        final Container container = new ServletContainerAdapter(servlet, "/test");
-        final Connection connection = new SocketConnection(container);
-        final SocketAddress address = new InetSocketAddress(9595);
+        try {
+            final HttpClient httpClient = new DefaultHttpClient();
+            setSoTimeout(httpClient.getParams(), 1000);
+            setConnectionTimeout(httpClient.getParams(), 2000);
 
-        connection.connect(address);
-
-        final HttpClient httpClient = new DefaultHttpClient();
-        final HttpResponse httpResponse = httpClient.execute(new HttpGet("http://localhost:9595/test/hello/world"));
-        final byte[] content = ByteStreams.toByteArray(httpResponse.getEntity().getContent());
-        System.out.println(new String(content, "UTF-8"));
-
-        connection.close();
+            final HttpResponse httpResponse = httpClient.execute(new HttpGet("http://localhost:9595/test/hello/world"));
+            final byte[] content = ByteStreams.toByteArray(httpResponse.getEntity().getContent());
+            assertThat(new String(content, "UTF-8")).isEqualTo("world");
+        }
+        finally {
+            servlight.stop();
+        }
     }
 
 }
