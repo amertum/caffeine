@@ -18,7 +18,7 @@ public class ServletContainerAdapterTest {
     public void testHandleSpringXml()
             throws Exception
     {
-        final SpringWebServlight servlight = new SpringWebServlight("/test", 9595, "classpath:/hello-servlet.xml");
+        final Servlight servlight = new SpringWebServlight("/test", 9595, "classpath:/hello-servlet.xml");
         servlight.start();
 
         try {

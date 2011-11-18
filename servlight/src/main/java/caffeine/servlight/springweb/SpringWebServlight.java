@@ -1,6 +1,7 @@
 package caffeine.servlight.springweb;
 
 import caffeine.servlight.ServletContainerAdapter;
+import caffeine.servlight.Servlight;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.transport.connect.Connection;
 import org.simpleframework.transport.connect.SocketConnection;
@@ -11,7 +12,9 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class SpringWebServlight {
+public class SpringWebServlight
+        implements Servlight
+{
 
     public SpringWebServlight(
             final String contextPath,
@@ -23,6 +26,7 @@ public class SpringWebServlight {
         this.contextConfigLocation = contextConfigLocation;
     }
 
+    @Override
     public void start()
             throws IOException, ServletException
     {
@@ -39,6 +43,7 @@ public class SpringWebServlight {
         this.connection.connect(new InetSocketAddress(this.port));
     }
 
+    @Override
     public void stop()
             throws IOException
     {
