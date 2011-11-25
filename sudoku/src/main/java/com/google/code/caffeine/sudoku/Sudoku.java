@@ -1,8 +1,11 @@
 package com.google.code.caffeine.sudoku;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +30,7 @@ public class Sudoku {
 
     public void solve()
     {
+        while (solveRemaining() > 0);
         while (solvePossibles() > 0);
     }
 
@@ -51,6 +55,41 @@ public class Sudoku {
         }
 
         System.out.println("solve possibles : " + changes);
+
+        return changes;
+    }
+
+    private int solveRemaining() {
+        System.out.println("solve remaining...");
+        int changes = 0;
+
+        for (Table.Cell<Integer, Integer, Integer> cell : this.board.cellSet()) {
+            final Integer rowKey = cell.getRowKey();
+            final Integer columnKey = cell.getColumnKey();
+            final Integer value = cell.getValue();
+
+            if (value == null) {
+                final int squareIndex = this.getSquareIndex(columnKey, rowKey);
+                final Set<Table.Cell<Integer, Integer, Integer>> squareCells = this.getSquareCells(squareIndex);
+
+                Set<Integer> union = Sets.newTreeSet();
+                for (final Table.Cell<Integer, Integer, Integer> squareCell : squareCells) {
+                    if (!squareCell.equals(cell)) {
+                        final Set<Integer> possibles = this.getPossibles(squareCell.getColumnKey(), squareCell.getRowKey());
+                        union = Sets.union(union, possibles);
+                    }
+                }
+
+                final Set<Integer> possibles = this.getPossibles(columnKey, rowKey);
+                final Set<Integer> diff = Sets.difference(possibles, union);
+                if (diff.size() == 1) {
+                    changes++;
+                    final Integer diffValue = getOnlyElement(diff);
+                    System.out.println("(" + columnKey + ", " + rowKey + ") : " + diffValue);
+                    this.board.put(rowKey, columnKey, diffValue);
+                }
+            }
+        }
 
         return changes;
     }
@@ -81,6 +120,17 @@ public class Sudoku {
         //System.out.println("possibles: " + possibles);
 
         return possibles;
+    }
+
+    public Set<Table.Cell<Integer, Integer, Integer>> getSquareCells(final int squareIndex) {
+        return Sets.filter(this.board.cellSet(), new Predicate<Table.Cell<Integer, Integer, Integer>>() {
+            @Override
+            public boolean apply(Table.Cell<Integer, Integer, Integer> input) {
+                final int index = getSquareIndex(input.getColumnKey(), input.getRowKey());
+
+                return (squareIndex == index);
+            }
+        });
     }
 
     public int getSquareIndex(
