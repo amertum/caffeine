@@ -5,33 +5,27 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.DiscreteDomains.integers;
-import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.*;
 import static com.google.common.collect.Iterables.filter;
-import static com.google.common.collect.Iterables.getOnlyElement;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Ranges.closed;
-import static com.google.common.collect.Sets.difference;
-import static com.google.common.collect.Sets.newTreeSet;
-import static com.google.common.collect.Sets.union;
+import static com.google.common.collect.Sets.*;
 
 public class Sudoku {
 
     public Sudoku(
-            final Table<Integer, Integer, Integer> board)
-    {
+            final Table<Integer, Integer, Integer> board) {
         this.board = board;
     }
 
-    public void solve()
-    {
-        while (solveRemaining() > 0);
-        while (solvePossibles() > 0);
+    public void solve() {
+        while (solveRemaining() > 0) ;
+        while (solvePossibles() > 0) ;
     }
 
     private int solvePossibles() {
@@ -97,8 +91,7 @@ public class Sudoku {
 
     public Set<Integer> getPossibles(
             int x,
-            int y)
-    {
+            int y) {
         final Integer value = this.board.get(x, y);
         if (value != null) {
             return newTreeSet();
@@ -135,25 +128,21 @@ public class Sudoku {
 
     public int getSquareIndex(
             int x,
-            int y)
-    {
+            int y) {
         return ((y - 1) / 3) * 3 + ((x - 1) / 3) + 1;
     }
 
     public Set<Integer> getImpossibles(
             int x,
-            int y)
-    {
+            int y) {
         return difference(closed(1, 9).asSet(integers()), getPossibles(x, y));
     }
 
-    public List<Integer> getRow(int index)
-    {
+    public List<Integer> getRow(int index) {
         return newArrayList(this.board.row(index).values());
     }
 
-    public List<Integer> getColumn(int index)
-    {
+    public List<Integer> getColumn(int index) {
         return newArrayList(this.board.column(index).values());
     }
 
@@ -165,17 +154,15 @@ public class Sudoku {
      * 7 8 9     6  7  8    2 2 2   0 1 2
      * </pre>
      */
-    public List<Integer> getSquare(int index)
-    {
+    public List<Integer> getSquare(int index) {
         int x1 = ((index - 1) / 3) * 3 * 9 + ((index - 1) % 3) * 3;
         int y1 = x1 + 3;
         return newArrayList(concat(newArrayList(this.board.values()).subList(x1, y1),
-                                   newArrayList(this.board.values()).subList(x1 + 9, y1 + 9),
-                                   newArrayList(this.board.values()).subList(x1 + 2 * 9, y1 + 2 * 9)));
+                newArrayList(this.board.values()).subList(x1 + 9, y1 + 9),
+                newArrayList(this.board.values()).subList(x1 + 2 * 9, y1 + 2 * 9)));
     }
 
-    public String toString()
-    {
+    public String toString() {
         String s = "";
 
         for (final Integer rowKey : board.rowKeySet()) {

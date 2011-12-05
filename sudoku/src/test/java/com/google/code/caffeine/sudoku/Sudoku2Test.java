@@ -9,49 +9,21 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Ranges.closed;
 import static org.fest.assertions.Assertions.assertThat;
 
-public class SudokuTest {
-
-    @Test
-    public void testBoard() throws Exception {
-        final Sudoku sudoku = new Sudoku(makeTable(HARD));
-
-        assertThat(sudoku.getRow(3)).containsExactly(null, null, null, null, null, 2, 6, null, 8);
-        assertThat(sudoku.getColumn(4)).containsExactly(7, null, null, null, null, null, null, null, 6);
-        assertThat(sudoku.getSquare(3)).containsExactly(1, null, 2, 5, 3, null, 6, null, 8);
-        assertThat(sudoku.getSquare(5)).containsExactly(null, 2, 3, null, null, null, null, null, null);
-        assertThat(sudoku.getSquare(7)).containsExactly(null, null, 5, null, 1, null, 9, null, null);
-
-        assertThat(sudoku.getSquareIndex(1, 1)).isEqualTo(1);
-        assertThat(sudoku.getSquareIndex(3, 3)).isEqualTo(1);
-        assertThat(sudoku.getSquareIndex(4, 4)).isEqualTo(5);
-        assertThat(sudoku.getSquareIndex(7, 2)).isEqualTo(3);
-        assertThat(sudoku.getSquareIndex(2, 7)).isEqualTo(7);
-        assertThat(sudoku.getSquareIndex(7, 7)).isEqualTo(9);
-
-        assertThat(sudoku.getPossibles(1, 1)).isEmpty();
-        assertThat(sudoku.getPossibles(2, 2)).containsOnly(6, 7);
-        assertThat(sudoku.getImpossibles(2, 2)).containsOnly(1, 2, 3, 4, 5, 8, 9);
-
-        System.out.println(sudoku.toString());
-    }
-
-    @Test
-    public void testSolveEasy() throws Exception {
-        final Sudoku sudoku = new Sudoku(makeTable(EASY));
-
-        System.out.println(sudoku.toString());
-
-        System.out.println("solving...");
-        sudoku.solve();
-
-        System.out.println("\n" + sudoku.toString());
-    }
+public class Sudoku2Test {
 
     @Test
     public void testSolveHard() throws Exception {
-        final Sudoku sudoku = new Sudoku(makeTable(HARD));
-
+        final Sudoku2 sudoku = new Sudoku2(makeTable(HARD));
         System.out.println(sudoku.toString());
+
+        System.out.println(sudoku.getBoard().get(4, 5).rowValues());
+        assertThat(sudoku.getBoard().get(4, 5).rowValues()).containsOnly(2, 3, 4, 5);
+        System.out.println(sudoku.getBoard().get(4, 5).columnValues());
+        assertThat(sudoku.getBoard().get(4, 5).columnValues()).containsOnly(1, 2, 6, 9);
+        System.out.println(sudoku.getBoard().get(4, 5).squareValues());
+        assertThat(sudoku.getBoard().get(4, 5).squareValues()).containsOnly(2, 3);
+
+        System.out.println("\n" + sudoku.possiblesToString());
 
         System.out.println("solving...");
         sudoku.solve();
@@ -61,14 +33,20 @@ public class SudokuTest {
 
     @Test
     public void testSolveHard2() throws Exception {
-        final Sudoku sudoku = new Sudoku(makeTable(HARD2));
-
+        final Sudoku2 sudoku = new Sudoku2(makeTable(HARD2));
         System.out.println(sudoku.toString());
 
-        System.out.println("solving...");
-        sudoku.solve();
+        System.out.println("possiblesToString\n" + sudoku.possiblesToString());
+        System.out.println("remainersToString\n" + sudoku.remainersToString());
 
-        System.out.println("\n" + sudoku.toString());
+        for (int i = 0; i < 3; i++) {
+            System.out.println("solving..." + (i + 1));
+            sudoku.solve();
+            System.out.println("\n" + sudoku.toString());
+        }
+
+        System.out.println("possiblesToString\n" + sudoku.possiblesToString());
+        System.out.println("remainersToString\n" + sudoku.remainersToString());
     }
 
     private static ArrayTable<Integer, Integer, Integer> makeTable(int[][] array) {
