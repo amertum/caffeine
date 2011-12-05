@@ -39,11 +39,14 @@ public class Sudoku2Test {
         System.out.println("possiblesToString\n" + sudoku.possiblesToString());
         System.out.println("remainersToString\n" + sudoku.remainersToString());
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println("solving..." + (i + 1));
-            sudoku.solve();
+        final int MAX = 10;
+        int i = 1;
+        boolean solved = false;
+        do {
+            System.out.println("solving..." + i++);
+            solved = sudoku.solve();
             System.out.println("\n" + sudoku.toString());
-        }
+        } while (!solved && i <= MAX);
 
         System.out.println("possiblesToString\n" + sudoku.possiblesToString());
         System.out.println("remainersToString\n" + sudoku.remainersToString());

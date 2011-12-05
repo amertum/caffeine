@@ -41,10 +41,16 @@ public class Sudoku2 {
         return this.board;
     }
 
-    public void solve() {
+    public boolean solve() {
+        boolean solved = true;
+
         for (Table.Cell<Integer, Integer, Point> cell : board.cellSet()) {
-             cell.getValue().solve();
+            cell.getValue().solve();
+
+            solved &= !cell.getValue().isEmpty();
         }
+
+        return solved;
     }
 
     public String possiblesToString() {
@@ -338,7 +344,7 @@ public class Sudoku2 {
             String s = "";
 
             if (this.isEmpty()) {
-                s += "     ";
+                s += "      ";
             }
             else {
                 if (!solveLogic.equals(SolveLogic.UNSOLVED)) {
@@ -348,7 +354,7 @@ public class Sudoku2 {
                     s += "   ";
                 }
 
-                s += this.solveLogic.toString() + this.value;
+                s += this.solveLogic.toString() + " " + this.value;
             }
 
             return s;
