@@ -1,7 +1,12 @@
 package com.google.code.caffeine.sudoku;
 
+import com.google.common.base.Function;
 import com.google.common.collect.ArrayTable;
+import com.google.common.collect.Ordering;
 import org.junit.Test;
+
+import javax.annotation.Nullable;
+import java.util.Arrays;
 
 import static com.google.common.collect.ArrayTable.create;
 import static com.google.common.collect.DiscreteDomains.integers;
